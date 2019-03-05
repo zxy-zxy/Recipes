@@ -9,3 +9,11 @@ def create_user(email, password):
         password=password
     )
     return user
+
+
+def create_superuser(email, password):
+    user = UserModel.objects.create_superuser(
+        email=email,
+        password=password
+    )
+    return user
