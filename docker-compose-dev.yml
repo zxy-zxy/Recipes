@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+
+  recipe-app-api:
+    build:
+      context: ./recipe-app-api
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './recipe-app-api:/usr/src/recipe-app-api'
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@recipes-db:5432/recipes_dev
+      - DJANGO_SETTINGS_MODULE=app.settings.development
+    depends_on:
+      - recipes-db
+
+  recipes-db:
+    build:
+      context: ./recipe-app-api/db
+      dockerfile: Dockerfile
+    ports:
+      - 5436:5432
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
