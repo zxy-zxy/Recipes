@@ -2,12 +2,12 @@ version: '3.6'
 
 services:
 
-  recipe-app-api:
+  recipes:
     build:
-      context: ./recipe-app-api
+      context: recipes
       dockerfile: Dockerfile-dev
     volumes:
-      - './recipe-app-api:/usr/src/recipe-app-api'
+      - './recipes:/usr/src/recipes'
     ports:
       - 8000:8000
     environment:
@@ -18,7 +18,7 @@ services:
 
   recipes-db:
     build:
-      context: ./recipe-app-api/db
+      context: recipes/db
       dockerfile: Dockerfile
     ports:
       - 5436:5432

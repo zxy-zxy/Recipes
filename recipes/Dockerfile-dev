@@ -1,0 +1,20 @@
+# base image
+FROM python:3.7.2-slim
+
+# install netcat
+RUN apt-get update && \
+    apt-get -y install netcat && \
+    apt-get clean
+
+RUN mkdir -p /usr/src/recipes
+WORKDIR /usr/src/recipes
+
+COPY ./requirements.txt /usr/src/recipes/requirements.txt
+RUN pip install -r requirements.txt
+
+COPY ./entrypoint.sh /usr/src/recipes/entrypoint.sh
+RUN	chmod	+x	/usr/src/recipes/entrypoint.sh
+
+COPY . /usr/src/recipes
+
+CMD ["/usr/src/recipes/entrypoint.sh"]
