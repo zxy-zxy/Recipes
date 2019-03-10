@@ -7,11 +7,9 @@ from .utils import create_superuser, create_user
 class AdminSiteTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.admin_user = create_superuser(
-            'admin@dev.com', 'GreaterThanEight')
+        self.admin_user = create_superuser('admin@dev.com', 'GreaterThanEight')
         self.client.force_login(self.admin_user)
-        self.user = create_user(
-            'test@dev.com', 'GreaterThanEight')
+        self.user = create_user('test@dev.com', 'GreaterThanEight')
 
     def test_users_listed(self):
         """Test that users are listed on the user page"""

@@ -42,8 +42,5 @@ class ModelTests(TestCase):
         email = 'test@dev.com'
         password = 'GreaterThanEight'
         user = create_user(email, password)
-        tag = models.Tag.objects.create(
-            user=user,
-            name='Vegan'
-        )
+        tag = models.Tag.objects.create(user=user, name='Vegan')
         self.assertEqual(str(tag), tag.name)

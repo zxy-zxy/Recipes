@@ -29,11 +29,7 @@ class PublicUserApiTest(TestCase):
         email = 'test@dev.com'
         password = 'GreaterThanEight'
         name = 'test'
-        payload = {
-            'email': email,
-            'password': password,
-            'name': name
-        }
+        payload = {'email': email, 'password': password, 'name': name}
         res = self.client.post(CREATE_USER_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         user = get_user_model().objects.get(**res.data)
@@ -48,11 +44,7 @@ class PublicUserApiTest(TestCase):
         email = 'test@dev.com'
         password = 'GreaterThanEight'
         name = 'test'
-        payload = {
-            'email': email,
-            'password': password,
-            'name': name
-        }
+        payload = {'email': email, 'password': password, 'name': name}
         create_user(**payload)
         res = self.client.post(CREATE_USER_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
@@ -62,11 +54,7 @@ class PublicUserApiTest(TestCase):
         email = 'test@dev.com'
         password = 'test'
         name = 'test'
-        payload = {
-            'email': email,
-            'password': password,
-            'name': name
-        }
+        payload = {'email': email, 'password': password, 'name': name}
         res = self.client.post(CREATE_USER_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         user_exists = get_user_model().objects.filter(email=email).exists()
@@ -76,10 +64,7 @@ class PublicUserApiTest(TestCase):
         """
         Test that a token create for a user
         """
-        payload = {
-            'email': 'test@dev.com',
-            'password': 'GreaterThanEight'
-        }
+        payload = {'email': 'test@dev.com', 'password': 'GreaterThanEight'}
         create_user(**payload)
         res = self.client.post(TOKEN_URL, data=payload)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -122,11 +107,7 @@ class PrivateUserAPITest(TestCase):
     def setUp(self):
         self.email = 'test@dev.com'
         self.password = 'GreaterThanEight'
-        self.user = create_user(
-            email=self.email,
-            password=self.password,
-            name='name'
-        )
+        self.user = create_user(email=self.email, password=self.password, name='name')
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
@@ -134,10 +115,7 @@ class PrivateUserAPITest(TestCase):
         """Test retrieving profile for logged in user"""
         res = self.client.get(ME_URL)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, {
-            'name': self.user.name,
-            'email': self.user.email
-        })
+        self.assertEqual(res.data, {'name': self.user.name, 'email': self.user.email})
 
     def test_post_me_not_allowed(self):
         """Test that POST is not allowed on the me url"""
