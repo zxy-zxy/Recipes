@@ -1,6 +1,6 @@
-Django-REST-Framework based recipes project.
+## Django-REST-Framework based recipes project.
 
-To run project with Docker container:
+### To run project with Docker container:
 ```bash
 docker-compose -f docker-compose-dev.yml build
 docker-compose -f docker-compose-dev.yml up
@@ -23,4 +23,12 @@ docker container ls
 Create superuser:
 ```bash
 docker exec -i -t <container_name> python manage.py createsuperuser
+```
+
+
+### If you want to run without docker-container, than simply:
+```bash
+python manage.py makemigrations --settings=app.settings.local_development
+python manage.py migrate --settings=app.settings.local_development
+python manage.py runserver --settings=app.settings.local_development
 ```
