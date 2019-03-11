@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase
 from rest_framework import status
@@ -49,15 +48,29 @@ class PrivateIngredientsApiTest(TestCase):
         """Test that ingredients returned for authenticated user"""
         user2 = create_user('other@dev.com', 'OtherPassword')
 
-        ingredient_user = Ingredient.objects.create(
-            name='Cucumber', user=self.user
-        )
-        ingredient_user2 = Ingredient.objects.create(
-            name='Kale', user=user2
-        )
+        ingredient_user = Ingredient.objects.create(name='Cucumber', user=self.user)
+        ingredient_user2 = Ingredient.objects.create(name='Kale', user=user2)
 
         res = self.client.get(INGREDIENTS_URL)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]['name'], ingredient_user.name)
+
+    def test_create_ingredient_successful(self):
+        """Test create a new ingredient"""
+        payload = {'name': 'potato'}
+        self.client.post(INGREDIENTS_URL, payload)
+
+        exists = Ingredient.objects.filter(
+            user=self.user, name=payload['name']
+        ).exists()
+
+        self.assertTrue(exists)
+
+    def test_create_ingredient_invalid(self):
+        """Test creating invalid ingredient fails"""
+        payload = {'name': ''}
+        res = self.client.post(INGREDIENTS_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)

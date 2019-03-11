@@ -50,9 +50,6 @@ class ModelTests(TestCase):
         email = 'test@dev.com'
         password = 'GreaterThanEight'
         user = create_user(email, password)
-        ingredient = models.Ingredient.objects.create(
-            name='Cucumber',
-            user=user,
-        )
+        ingredient = models.Ingredient.objects.create(name='Cucumber', user=user)
 
         self.assertEqual(str(ingredient), ingredient.name)

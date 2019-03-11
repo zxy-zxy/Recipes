@@ -5,11 +5,12 @@ from core.models import Tag, Ingredient
 
 class TagSerializer(serializers.ModelSerializer):
     """Serializer for tag object"""
+
     user = serializers.ReadOnlyField(source='user.email')
 
     class Meta:
         model = Tag
-        fields = ('id', 'name', 'user',)
+        fields = ('id', 'name', 'user')
         read_only_fields = ('id',)
 
     @classmethod
