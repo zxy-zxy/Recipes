@@ -7,6 +7,11 @@ def detail_url(recipe_id):
     return reverse('recipe:recipe-detail', args=[recipe_id])
 
 
+def image_upload_url(recipe_id):
+    """Return url for recipe image upload"""
+    return reverse('recipe:recipe-upload-image', args=[recipe_id])
+
+
 def sample_recipe(user, **kwargs):
     """Create and return sample recipe"""
     defaults = {'title': 'Sample recipe', 'time_minutes': 10, 'price': 5.00}

@@ -17,4 +17,10 @@ RUN	chmod	+x	/usr/src/recipes/entrypoint.sh
 
 COPY . /usr/src/recipes
 
+# RUN mkdir -p /vol/web/media
+# RUN mkdir -p /vol/web/static
+# RUN adduser -D user
+# RUN chown -R user:user /vol/
+# RUN chmod -R 755 /vol/web
+
 CMD ["/usr/src/recipes/entrypoint.sh"]

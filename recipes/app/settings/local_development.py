@@ -22,3 +22,6 @@ LOGGING = {
         'django.db.backends': {'handlers': ['console', 'file'], 'level': 'DEBUG'}
     },
 }
+
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')

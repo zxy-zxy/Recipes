@@ -17,3 +17,6 @@ LOGGING = {
     'handlers': {'console': {'class': 'logging.StreamHandler'}},
     'loggers': {'django.db.backends': {'handlers': ['console'], 'level': 'DEBUG'}},
 }
+
+MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'
