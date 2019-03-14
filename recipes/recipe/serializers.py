@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from rest_framework.serializers import CharField
-
+from rest_framework.serializers import ImageField
 from core.models import Tag, Ingredient, Recipe
 
 
@@ -31,15 +30,15 @@ class IngredientSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     """Serialize a recipe"""
 
-    # title = CharField(max_length=255, required=True)
     ingredients = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Ingredient.objects.all()
     )
     tags = serializers.PrimaryKeyRelatedField(many=True, queryset=Tag.objects.all())
+    image = ImageField(allow_null=True, max_length=100, required=False, read_only=True)
 
     class Meta:
         model = Recipe
-        fields = ('id', 'title', 'ingredients', 'tags', 'time_minutes', 'price', 'link')
+        fields = ('id', 'title', 'ingredients', 'tags', 'time_minutes', 'price', 'link', 'image')
         read_only_fields = ('id',)
 
     @classmethod
