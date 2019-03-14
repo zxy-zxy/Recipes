@@ -59,7 +59,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         serializer_class = self.get_serializer_class()
-        has_setup_eager_loading_method = getattr(serializer_class, 'setup_eager_loading', None)
+        has_setup_eager_loading_method = getattr(
+            serializer_class, 'setup_eager_loading', None
+        )
         if has_setup_eager_loading_method is not None:
             queryset = self.get_serializer_class().setup_eager_loading(self.queryset)
         else:

@@ -3,17 +3,21 @@ from django_filters import rest_framework as filters
 from core.models import Tag, Ingredient, Recipe
 
 
-class TagFilter(filters.FilterSet):
+class BaseRecipeFilter(filters.FilterSet):
     name = filters.CharFilter(lookup_expr='icontains')
+    assigned_to = filters.BooleanFilter(method='is_assigned', label='is assigned')
 
+    def is_assigned(self, queryset, name, value):
+        return queryset.filter(recipe__isnull=not value).distinct()
+
+
+class TagFilter(BaseRecipeFilter):
     class Meta:
         model = Tag
         fields = ('name',)
 
 
-class IngredientFilter(filters.FilterSet):
-    name = filters.CharFilter(lookup_expr='icontains')
-
+class IngredientFilter(BaseRecipeFilter):
     class Meta:
         model = Ingredient
         fields = ('name',)
