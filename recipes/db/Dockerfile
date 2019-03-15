@@ -1,4 +1,4 @@
-FROM postgres:10.4-alpine
+FROM postgres:10-alpine
 
 ADD create.sql /docker-entrypoint-initdb.d
 
